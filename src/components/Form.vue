@@ -45,7 +45,7 @@ const handleChangeRes = (event) => {
 }
 const onConfirm = async (event) => {
   try {
-    await axios.put(`http://localhost:8080/reservas/confirm/${props.reservationData.id}`)
+    await axios.put(`/reservas/confirm/${props.reservationData.id}`)
     alert('La reserva se confirmo con exito')
   } catch (error) {
     alert(error.message)
@@ -68,8 +68,8 @@ const onUpdate = async (event) => {
       people: Number(reservationData.value.people),
       descriptionObservations: reservationData.value.descriptionObservations
     }
-    await axios.put(`http://localhost:8080/usuarios/${user.userId}`, user)
-    await axios.put(`http://localhost:8080/reservas/update/${props.reservationData.id}`, reserva)
+    await axios.put(`/usuarios/${user.userId}`, user)
+    await axios.put(`/reservas/update/${props.reservationData.id}`, reserva)
     alert('La reserva se actualizo con exito')
   } catch (error) {
     alert(error.message)
@@ -93,8 +93,8 @@ const onSubmit = async (event) => {
       people: Number(reservationData.value.people),
       descriptionObservations: reservationData.value.descriptionObservations
     }
-    await axios.post('http://localhost:8080/usuarios', user)
-    await axios.post(`http://localhost:8080/reservas/${user.userId}`, reserva)
+    await axios.post('/usuarios', user)
+    await axios.post(`/reservas/${user.userId}`, reserva)
     alert('La reserva se creo con exito')
   } catch (error) {
     alert(error.message)

@@ -21,7 +21,7 @@ const onSubmit = async (event) => {
     email: userData.value.email
   }
   try {
-    const admin = await axios.post('http://localhost:8080/usuarios/login', user);
+    const admin = await axios.post('/usuarios/login', user);
     localStorage.setItem('admin', admin.data);
     if(admin.data==='access'){        
         router.push('/admindashboard');

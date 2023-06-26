@@ -89,12 +89,11 @@ import axios from 'axios'
 import Form from '../components/Form.vue'
 const array = ref([])
 onMounted(async () => {
-  const data = await axios.get('http://localhost:8080/usuarios')
+  const data = await axios.get('/usuarios')
   array.value = data.data
 })
 const searchTerm = ref('')
 const filteredArray = computed(() => {
-  // Filtrar el arreglo utilizando el término de búsqueda
   const term = searchTerm.value.toLowerCase()
   return array.value.filter((user) => {
     return (
