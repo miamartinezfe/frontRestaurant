@@ -1,6 +1,12 @@
 <template>
   <div>
-    <input class="form-control me-2" v-model="searchTerm" type="search" placeholder="Buscar" aria-label="Search"/>
+    <input
+      class="form-control me-2"
+      v-model="searchTerm"
+      type="search"
+      placeholder="Buscar"
+      aria-label="Search"
+    />
     <div class="table-responsive">
       <table class="table">
         <thead>
@@ -64,6 +70,7 @@
                           :userData="user"
                           :reservationData="reserva"
                           :key="user.userId + '-' + reserva.id"
+                          :update="update"
                         ></Form>
                       </div>
                       <div class="modal-footer">
@@ -84,7 +91,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import axios from 'axios'
 import Form from '../components/Form.vue'
 const array = ref([])
@@ -92,6 +99,11 @@ onMounted(async () => {
   const data = await axios.get('/usuarios')
   array.value = data.data
 })
+
+const update = async () => {
+  const data = await axios.get('/usuarios')
+  array.value = data.data
+}
 const searchTerm = ref('')
 const filteredArray = computed(() => {
   const term = searchTerm.value.toLowerCase()

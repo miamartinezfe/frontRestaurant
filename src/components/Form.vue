@@ -4,7 +4,8 @@ import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import axios from 'axios'
 import { defineProps } from 'vue'
-const props = defineProps(['userData', 'reservationData'])
+import {router} from '../router/index'
+const props = defineProps(['userData', 'reservationData', 'update'])
 const flow = ref(['month', 'day', 'hours', 'minutes'])
 
 const userData = ref({
@@ -44,14 +45,17 @@ const handleChangeRes = (event) => {
   }
 }
 const onConfirm = async (event) => {
+  event.preventDefault();
   try {
     await axios.put(`/reservas/confirm/${props.reservationData.id}`)
-    alert('La reserva se confirmo con exito')
+    props.update();
+    alert('La reserva se confirmo con exito')    
   } catch (error) {
     alert(error.message)
   }
 }
 const onUpdate = async (event) => {
+  event.preventDefault();
   try {
     const user = {
       userId: userData.value.userId,
@@ -70,6 +74,7 @@ const onUpdate = async (event) => {
     }
     await axios.put(`/usuarios/${user.userId}`, user)
     await axios.put(`/reservas/update/${props.reservationData.id}`, reserva)
+    props.update();
     alert('La reserva se actualizo con exito')
   } catch (error) {
     alert(error.message)
@@ -96,6 +101,7 @@ const onSubmit = async (event) => {
     await axios.post('/usuarios', user)
     await axios.post(`/reservas/${user.userId}`, reserva)
     alert('La reserva se creo con exito')
+    router.push('/');
   } catch (error) {
     alert(error.message)
   }
